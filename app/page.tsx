@@ -1,3 +1,5 @@
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import DropDownMenu from "@/components/Menu";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,52 +9,7 @@ import Instagram from "../assets/images/icons/instagram.svg";
 export default function Home() {
   return (
     <>
-      <header className="py-5 px-5 sm:px-8 flex items-center  mb-20">
-        <div className="flex flex-1">
-          <span>KOHUBI</span>
-        </div>
-        <div className="flex flex-row">
-          <button
-            className="p-1.5 cursor-pointer "
-            aria-label="Toggle light/dark themes"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
-              />
-            </svg>
-          </button>
-
-          <button className="p-1.5 cursor-pointer" aria-label="Search">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-              />
-            </svg>
-          </button>
-          <nav className="lg:hidden relative">
-            <DropDownMenu />
-          </nav>
-        </div>
-      </header>
+      <Header />
       <div className="max-w-[1480px] mx-auto px-5 sm:px-8 ">
         <h1 className="text-3xl sm:text-6xl sm:leading-tight max-w-screen-xl font-normal">
           <b>취미부자 개발자 코후비입니다.</b> 이 블로그는 개인적으로 운영하는
@@ -96,22 +53,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <footer className="max-w-[1480px] mx-auto px-5 sm:px-8 mt-28">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-6 pt-10 border-t border-gray-100 dark:border-gray-900">
-          <h3 className="uppercase text-sm tracking-wider mb-6">Follow Me</h3>
-          <div className="flex gap-5 text-xl heading-color ">
-            <Link href={"https://instagram.com"}>
-              <Instagram width={30} height={30} />
-            </Link>
-            <Link href={"https://github.com"}>
-              <Github width={30} height={30} />
-            </Link>
-          </div>
-        </div>
-        <div className="py-6 text-sm text-center uppercase tracking-wide">
-          © 2023 코후비 블로그
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
