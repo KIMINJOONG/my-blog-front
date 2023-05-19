@@ -1,4 +1,5 @@
 import "./globals.css";
+import "remixicon/fonts/remixicon.css";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
