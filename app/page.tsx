@@ -1,3 +1,4 @@
+"use client";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import DropDownMenu from "@/components/Menu";
@@ -5,11 +6,14 @@ import Image from "next/image";
 import Link from "next/link";
 import Github from "../assets/images/icons/github.svg";
 import Instagram from "../assets/images/icons/instagram.svg";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import HowItWorks from "@/components/HowItWorks";
 
 export default function Home() {
   return (
     <>
-      <Header />
+      {/* <Header />
       <div className="max-w-[1480px] mx-auto px-5 sm:px-8 ">
         <h1 className="text-3xl sm:text-6xl sm:leading-tight max-w-screen-xl font-normal">
           <b>취미부자 개발자 코후비입니다.</b> 이 블로그는 개인적으로 운영하는
@@ -53,7 +57,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer /> */}
+      <Hero className={"pt-32 pb-0 lg:pb-10"} />
+      <About className={"py-16 lg:py-32 overflow-hidden"} />
+      <HowItWorks className={"py-16 !pt-32 lg:py-32"} />
     </>
   );
 }

@@ -1,68 +1,102 @@
 "use client";
-import "../../../components/styles.scss";
+import QuillNoSSRWrapper from "@/components/QuillNoSSRWrapper";
+import { useMemo, useRef, useState } from "react";
+import ReactQuill from "react-quill";
 
-import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Header from "@/components/Header";
-import { Color } from "@tiptap/extension-color";
-import ListItem from "@tiptap/extension-list-item";
-import TextStyle from "@tiptap/extension-text-style";
-import MenuBar from "@/components/MenuBar";
-import Image from "@tiptap/extension-image";
+const formats = [
+  "header",
+  "font",
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "align",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "background",
+  "color",
+  "link",
+  "image",
+  "video",
+  "width",
+  "code",
+];
 
-const CreatePost = () => {
-  const editor = useEditor({
-    extensions: [
-      Color.configure({ types: [TextStyle.name, ListItem.name] }),
-      StarterKit.configure({
-        bulletList: {
-          keepMarks: true,
-          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-        },
-        orderedList: {
-          keepMarks: true,
-          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-        },
-      }),
-      Image,
-    ],
-    content: `
-          <h2>
-            Hi there,
-          </h2>
-          <p>
-            this is a <em>basic</em> example of <strong>tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:
-          </p>
-          <ul>
-            <li>
-              That’s a bullet list with one …
-            </li>
-            <li>
-              … or two list items.
-            </li>
-          </ul>
-          <p>
-            Isn’t that great? And all of that is editable. But wait, there’s more. Let’s try a code block:
-          </p>
-          <pre><code class="language-css">body {
-      display: none;
-    }</code></pre>
-          <p>
-            I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.
-          </p>
-          <blockquote>
-            Wow, that’s amazing. Good work, boy! 👏
-            <br />
-            — Mom
-          </blockquote>
-        `,
-  });
+const EditorComponent = () => {
+  const quillInstance = useRef<ReactQuill>(null);
+  const [contents, setContents] = useState<string>();
+
+  const imageHandler = () => {
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+
+    input.addEventListener("change", async () => {
+      console.log("드ㄹ어옴");
+      if (quillInstance && quillInstance.current) {
+        if (input.files) {
+          const file = input.files[0];
+
+          try {
+            // const res = await imageApi({ img: file });
+            // const imgUrl = res.data.imgUrl;
+            // const editor = quillInstance.current.getEditor();
+            // const range = editor.getSelection();
+            // if (range !== null) {
+            //   editor.insertEmbed(range.index, "image", imgUrl);
+            //   editor.setSelection(range.index + 1);
+            // }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+    });
+  };
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          ["link", "image", "video"],
+          [{ header: [1, 2, 3, false] }],
+          ["bold", "italic", "underline", "strike"],
+          ["blockquote", "code"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          [{ color: [] }, { background: [] }],
+          [{ align: [] }],
+        ],
+        handlers: { image: imageHandler },
+      },
+      // imageCompress: {
+      //   quality: 1,
+      //   debug: true, // default
+      //   suppressErrorLogging: false,
+      //   insertIntoEditor: undefined,
+
+      // },
+      imageResize: {
+        modules: ["Resize", "DisplaySize"],
+      },
+    }),
+    []
+  );
+
   return (
-    <>
-      <Header />
-      <MenuBar editor={editor} />
-      <EditorContent editor={editor} />
-    </>
+    <QuillNoSSRWrapper
+      forwardedRef={quillInstance}
+      value={contents}
+      onChange={(e) => setContents(e)}
+      modules={modules}
+      theme="snow"
+      placeholder="내용을 입력해주세요."
+      formats={formats}
+    />
   );
 };
-export default CreatePost;
+
+export default EditorComponent;

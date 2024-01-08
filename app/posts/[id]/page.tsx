@@ -18,7 +18,7 @@ const PostDetail = () => {
                 카테고리
               </Link>
             </div>
-            <div className="text-sm data-color flex items-center ">
+            <div className="text-sm data-color flex items-center">
               <span className="whitespace-nowrap ">2023.05.05</span>
               <span className="px-2.5">⋅</span>
               <span className="whitespace-nowrap">5분 전</span>
