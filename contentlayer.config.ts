@@ -34,6 +34,11 @@ const Post = defineDocumentType(() => ({
       description: "The author image of the post",
       required: true,
     },
+    slug: {
+      type: "string",
+      description: "The slug ",
+      required: false,
+    },
     categories: {
       type: "list",
       of: Category,
