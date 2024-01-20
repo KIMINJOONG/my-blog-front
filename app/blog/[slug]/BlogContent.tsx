@@ -1,25 +1,19 @@
 "use client";
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Post, allPosts } from "@/.contentlayer/generated";
-import { compareDesc, format, parseISO } from "date-fns";
-import { getMDXComponent } from "next-contentlayer/hooks";
+import { allPosts } from "@/.contentlayer/generated";
+import QuillNoSSRWrapper from "@/components/QuillNoSSRWrapper";
 import PostCard from "@/components/blog/PostCard";
-
-function slugify(str: string) {
-  return str
-    .toLowerCase()
-    .replace(/[^a-z0-9 -]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-");
-}
+import { IPost } from "@/types/model";
+import { format, parseISO } from "date-fns";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { useRef } from "react";
+import ReactQuill from "react-quill";
 
 interface IProps {
-  post: Post | undefined;
+  post: IPost;
 }
 const BlogContent = ({ post }: IProps) => {
+  const quillInstance = useRef<ReactQuill>(null);
   const posts = allPosts.sort();
   let MDXContnet;
 
@@ -28,7 +22,7 @@ const BlogContent = ({ post }: IProps) => {
   if (!post) {
     console.log("Post not found");
   } else {
-    MDXContnet = getMDXComponent(post.body.code);
+    // MDXContnet = getMDXComponent(post.body.code);
   }
 
   return (
@@ -53,12 +47,12 @@ const BlogContent = ({ post }: IProps) => {
           </h1>
           <p className={"text-slate-500 mt-10"}>
             <span className={"inline-flex space-x-3"}>
-              <span>{format(parseISO(post.date), "LLL d, yyyy")}</span>
+              <span>{format(parseISO(post.createdAt), "LLL d, yyyy")}</span>
               <span>.</span>
-              <span>{post.author}</span>
+              <span>kohubi</span>
             </span>
             <span className="mx-3">.</span>
-            {post.categories.map((category, index) => (
+            {/* {post.categories.map((category, index) => (
               <Link
                 href={`/blog/categories/${slugify(category.title)}`}
                 key={category.title}
@@ -67,21 +61,28 @@ const BlogContent = ({ post }: IProps) => {
                 {category.title}
                 {index < post.categories.length - 1 ? `,` : ``}
               </Link>
-            ))}
+            ))} */}
           </p>
         </div>
         <div className={"mb-16"}>
-          <Image
-            src={post.image}
+          {/* <Image
+            src={post?.image ?? ""}
             width={1065}
             height={644}
             alt={post.title}
             className={"object-cover object-top"}
-          />
+          /> */}
         </div>
 
         <article className={"prose mx-auto max-w-2xl"}>
-          <MDXContnet />
+          <QuillNoSSRWrapper
+            forwardedRef={quillInstance}
+            value={post.content}
+            theme={"bubble"}
+            readOnly={true}
+            placeholder="내용을 입력해주세요."
+          />
+          {/* <MDXContnet /> */}
         </article>
 
         <div className={"max-w-4xl mx-auto mt-20 lg:mt-32"}>
