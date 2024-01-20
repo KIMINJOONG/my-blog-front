@@ -1,6 +1,7 @@
 "use client";
 import QuillNoSSRWrapper from "@/components/QuillNoSSRWrapper";
-import { useMemo, useRef, useState } from "react";
+import axios from "axios";
+import { useCallback, useMemo, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 
 const formats = [
@@ -42,14 +43,34 @@ const EditorComponent = () => {
           const file = input.files[0];
 
           try {
-            // const res = await imageApi({ img: file });
-            // const imgUrl = res.data.imgUrl;
-            // const editor = quillInstance.current.getEditor();
-            // const range = editor.getSelection();
-            // if (range !== null) {
-            //   editor.insertEmbed(range.index, "image", imgUrl);
-            //   editor.setSelection(range.index + 1);
-            // }
+            const form = new FormData();
+            form.append("images", file);
+            const result = await axios.post(
+              "http://localhost:4000/images/upload",
+              form,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            );
+
+            if (result) {
+              // const res = await imageApi({ img: file });
+              // const imgUrl = res.data.imgUrl;
+              for (const imageUrl of result.data) {
+                const editor = quillInstance.current.getEditor();
+                const range = editor.getSelection();
+                if (range !== null) {
+                  editor.insertEmbed(
+                    range.index,
+                    "image",
+                    `https://kohubi-new-blog.s3.ap-northeast-2.amazonaws.com/${imageUrl}`
+                  );
+                  editor.setSelection(range.index + 1);
+                }
+              }
+            }
           } catch (error) {
             console.log(error);
           }
@@ -86,16 +107,30 @@ const EditorComponent = () => {
     []
   );
 
+  const onSubmit = useCallback(async () => {
+    try {
+      await axios.post("http://localhost:4000/posts", {
+        title: "제목",
+        content: contents,
+      });
+    } catch (e) {}
+  }, [contents]);
+
   return (
-    <QuillNoSSRWrapper
-      forwardedRef={quillInstance}
-      value={contents}
-      onChange={(e) => setContents(e)}
-      modules={modules}
-      theme="snow"
-      placeholder="내용을 입력해주세요."
-      formats={formats}
-    />
+    <section className={"pt-52 pb-24"}>
+      <div onClick={onSubmit}>
+        <p>등록</p>
+      </div>
+      <QuillNoSSRWrapper
+        forwardedRef={quillInstance}
+        value={contents}
+        onChange={(e) => setContents(e)}
+        modules={modules}
+        theme="snow"
+        placeholder="내용을 입력해주세요."
+        formats={formats}
+      />
+    </section>
   );
 };
 

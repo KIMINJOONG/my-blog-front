@@ -6,18 +6,27 @@ import { Post, allPosts } from "@/.contentlayer/generated";
 import { compareDesc, format, parseISO } from "date-fns";
 import ReactPaginate from "react-paginate";
 import { motion } from "framer-motion";
+import { IPost } from "@/types/model";
 
 interface IPros {
   className: string;
   itemsPerPage: number;
   archive?: boolean;
   params?: any;
+  posts: IPost[];
+  totalCount: number;
 }
-const Items = ({ currentItems }: { currentItems: Post[] | null }) => {
+const Items = ({
+  currentItems,
+  posts,
+}: {
+  currentItems: Post[] | null;
+  posts: IPost[];
+}) => {
   return (
     <>
-      {currentItems &&
-        currentItems.map((post, index) => {
+      {posts &&
+        posts.map((post, index) => {
           index *= 0.05;
           return (
             <motion.div
@@ -32,11 +41,11 @@ const Items = ({ currentItems }: { currentItems: Post[] | null }) => {
               className={"bg-white relative overflow-hidden group"}
             >
               <Link
-                href={post.url}
+                href={`/blog/${post.id}`}
                 className={"relative block overflow-hidden"}
               >
                 <Image
-                  src={post.image}
+                  src={post.image ?? ""}
                   alt={"kim"}
                   width={1064}
                   height={644}
@@ -51,17 +60,20 @@ const Items = ({ currentItems }: { currentItems: Post[] | null }) => {
                     "text-gray-500 mb-3 uppercase text-[12px] tracking-[1px]"
                   }
                 >
-                  {format(parseISO(post.date), "LLL d, yyyy")} {post.author}
+                  {format(parseISO(post.createdAt), "LLL d, yyyy")}
                 </p>
                 <h3 className={"mb-4"}>
-                  <Link href={post.url} className={"text-lg leading-none"}>
+                  <Link
+                    href={`/blog/${post.id}`}
+                    className={"text-lg leading-none"}
+                  >
                     {post.title}
                   </Link>
                 </h3>
 
                 <p>
                   <Link
-                    href={post.url}
+                    href={`/blog/${post.id}`}
                     className={
                       "text-[12px] tracking-[2px] uppercase border-b-2 pb-2 inline-block border-violet-600"
                     }
@@ -77,7 +89,14 @@ const Items = ({ currentItems }: { currentItems: Post[] | null }) => {
   );
 };
 
-const Posts = ({ className, itemsPerPage, archive = false, params }: IPros) => {
+const Posts = ({
+  className,
+  itemsPerPage,
+  archive = false,
+  params,
+  posts,
+  totalCount,
+}: IPros) => {
   const [currentItems, setCurrentItems] = useState<Post[] | null>(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
@@ -134,7 +153,7 @@ const Posts = ({ className, itemsPerPage, archive = false, params }: IPros) => {
             "lg:w-10/12 mx-auto mb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
           }
         >
-          <Items currentItems={currentItems} />
+          <Items currentItems={currentItems} posts={posts} />
         </div>
 
         <div className={"lg:w-10/12 mx-auto flex flex-wrap"}>

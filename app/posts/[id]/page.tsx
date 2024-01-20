@@ -1,9 +1,14 @@
+"use client";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import QuillNoSSRWrapper from "@/components/QuillNoSSRWrapper";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
+import ReactQuill from "react-quill";
 
 const PostDetail = () => {
+  const quillInstance = useRef<ReactQuill>(null);
   return (
     <>
       <Header />
@@ -52,22 +57,14 @@ const PostDetail = () => {
               </Link>
             </div>
           </div>
-          <div className="block relative pt-[75%] bg-black/5 dark:bg-white/5 mt-12">
-            <Image
-              fill
-              alt="Post thumbnail"
-              src={
-                "https://www.rd.com/wp-content/uploads/2019/11/cat-10-e1573844975155.jpg"
-              }
-            />
-          </div>
           <div className="prose sm:prose-lg max-w-none dark:prose-invert prose-figcaption:text-sm prose-figcaption:text-center prose-figcaption:mt-2 mt-16">
-            <p>
-              Morbi accumsan turpis vitae vulputate rhoncus. Etiam accumsan arcu
-              diam, ac lobortis ligula commodo quis. Nulla a ipsum sagittis,
-              malesuada leo ac, convallis massa. Sed imperdiet lorem libero, sit
-              amet iaculis dolor tempus at. Curabitur et tempor massa.
-            </p>
+            <QuillNoSSRWrapper
+              forwardedRef={quillInstance}
+              value={`<p><img src="https://kohubi-new-blog.s3.ap-northeast-2.amazonaws.com/1705463694936.png" width="186" style="">안녕</p><h1>ㅁㅇㄴㄹㅁㄴㅇㄹㅁㄴ</h1><p><code>ㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴ</code></p><p><br></p><blockquote><code>ㄴㅇㄹㅁㄴㅇㄹㅁ</code></blockquote><blockquote><br></blockquote><blockquote><code>ㅁ</code></blockquote><p><span style="background-color: rgb(0, 0, 0);">ㄹㅇㅁㄴㄹㄴㅁㄹㄴㅁㅇㄹ</span></p><p><br></p><p>dsfasasdf</p><p><br></p><p><a href="https://naver.com" rel="noopener noreferrer" target="_blank">https://naver.com</a></p>`}
+              theme={"bubble"}
+              readOnly={true}
+              placeholder="내용을 입력해주세요."
+            />
           </div>
         </div>
       </div>
