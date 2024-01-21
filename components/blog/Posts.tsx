@@ -1,12 +1,12 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { Post, allPosts } from "@/.contentlayer/generated";
-import { compareDesc, format, parseISO } from "date-fns";
-import ReactPaginate from "react-paginate";
-import { motion } from "framer-motion";
 import { IPost } from "@/types/model";
+import { compareDesc, format, parseISO } from "date-fns";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import ReactPaginate from "react-paginate";
 
 interface IPros {
   className: string;
@@ -15,14 +15,9 @@ interface IPros {
   params?: any;
   posts: IPost[];
   totalCount: number;
+  limit: number;
 }
-const Items = ({
-  currentItems,
-  posts,
-}: {
-  currentItems: Post[] | null;
-  posts: IPost[];
-}) => {
+const Items = ({ posts }: { posts: IPost[] }) => {
   return (
     <>
       {posts &&
@@ -96,9 +91,9 @@ const Posts = ({
   params,
   posts,
   totalCount,
+  limit,
 }: IPros) => {
-  const [currentItems, setCurrentItems] = useState<Post[] | null>(null);
-  const [pageCount, setPageCount] = useState(0);
+  const [pageCount, setPageCount] = useState(totalCount / limit);
   const [itemOffset, setItemOffset] = useState(0);
   const [clickPaginate, setClickPaginate] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -124,11 +119,7 @@ const Posts = ({
   }
 
   useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
     if (items) {
-      setCurrentItems(items!.slice(itemOffset, endOffset));
-      setPageCount(Math.ceil(items.length / itemsPerPage));
-
       if (clickPaginate === true) {
         setTimeout(function () {
           ref.current?.scrollIntoView({ block: "start", behavior: "smooth" });
@@ -136,12 +127,11 @@ const Posts = ({
         setClickPaginate(false);
       }
     }
-  }, [setCurrentItems, setPageCount, setClickPaginate]);
+  }, [setClickPaginate]);
 
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) & items!.length;
+  const handlePageClick = (selectedItem: { selected: number }) => {
+    console.log("selectedItem :", selectedItem);
     setClickPaginate(true);
-    setItemOffset(newOffset);
   };
 
   if (!items) return null;
@@ -153,7 +143,7 @@ const Posts = ({
             "lg:w-10/12 mx-auto mb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
           }
         >
-          <Items currentItems={currentItems} posts={posts} />
+          <Items posts={posts} />
         </div>
 
         <div className={"lg:w-10/12 mx-auto flex flex-wrap"}>

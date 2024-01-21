@@ -4,6 +4,7 @@ import Posts from "@/components/blog/Posts";
 import { ILoadPostsResponse } from "@/types/response";
 import { Metadata } from "next";
 
+const limit = 6;
 export const metadata: Metadata = {
   title: "Kohubi's Blogs",
   description: "개발자 코후비의 블로그",
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 
 async function fetchData() {
   const res: Response = await fetch(
-    `http://localhost:4000/posts?limit=6&page=0`,
+    `http://localhost:4000/posts?limit=${limit}&page=0`,
     {
       cache: "no-store",
     }
@@ -34,6 +35,7 @@ const Page = async () => {
         itemsPerPage={6}
         posts={data.posts}
         totalCount={data.totalCount}
+        limit={limit}
       />
       <Subscribe className={"py-16 pt-64 lg:py-32 bg-violet-600"} />
     </>

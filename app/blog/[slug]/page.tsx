@@ -1,9 +1,5 @@
-import React from "react";
-import { allPosts } from "@/.contentlayer/generated";
-import BlogContent from "./BlogContent";
-import { useRouter } from "next/router";
 import { IPost } from "@/types/model";
-import { ICommonFetchResponse, IGetPostResponse } from "@/types/response";
+import BlogContent from "./BlogContent";
 
 async function fetchData(slug: string) {
   const res = await fetch(`http://localhost:4000/posts/${slug}`, {
@@ -18,7 +14,6 @@ export const generateMetadata = async ({
 }: {
   params: { slug: string };
 }) => {
-  console.log(" params : ", params);
   const { post }: { post: IPost } = await fetchData(params.slug);
 
   return { title: post?.title, description: post?.content };
@@ -26,6 +21,7 @@ export const generateMetadata = async ({
 
 const Page = async ({ params }: { params: { slug: string } }) => {
   const data: IPost = await fetchData(params.slug);
+  console.log("data :", data);
   return (
     <>
       <BlogContent post={data} />

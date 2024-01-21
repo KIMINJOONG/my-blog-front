@@ -52,16 +52,13 @@ const BlogContent = ({ post }: IProps) => {
               <span>kohubi</span>
             </span>
             <span className="mx-3">.</span>
-            {/* {post.categories.map((category, index) => (
-              <Link
-                href={`/blog/categories/${slugify(category.title)}`}
-                key={category.title}
-                className={"font-medium"}
-              >
-                {category.title}
-                {index < post.categories.length - 1 ? `,` : ``}
-              </Link>
-            ))} */}
+            <Link
+              href={`/blog/categories/${post.category.id}`}
+              key={post.category.id}
+              className={"font-medium"}
+            >
+              {post.category.name}
+            </Link>
           </p>
         </div>
         <div className={"mb-16"}>
