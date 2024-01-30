@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { BiSolidHeart } from "react-icons/bi";
-import Github from "../assets/images/icons/github.svg";
-import Instagram from "../assets/images/icons/instagram.svg";
 
 interface IProps {
   className: string;
@@ -106,7 +104,7 @@ const Copyright = () => {
       <p className={"text-center items-center mx-auto text-sm"}>
         &copy; 2024{" "}
         <Link href={"/"} className={"text-violet-600"}>
-          arcraft
+          kohubi blog
         </Link>
         . All rights reserved. Created with{" "}
         <BiSolidHeart className={"text-red-500 mx-1 inline-block"} />
@@ -125,28 +123,12 @@ const Copyright = () => {
 
 const Footer = ({ className }: IProps) => {
   return (
-    // <footer className="max-w-[1480px] mx-auto px-5 sm:px-8 mt-28">
-    //   <div className="grid sm:grid-cols-2 lg:grid-cols-6 pt-10 border-t border-gray-100 dark:border-gray-900">
-    //     <h3 className="uppercase text-sm tracking-wider mb-6">Follow Me</h3>
-    //     <div className="flex gap-5 text-xl heading-color ">
-    //       <Link href={"https://instagram.com"}>
-    //         <Instagram width={30} height={30} />
-    //       </Link>
-    //       <Link href={"https://github.com"}>
-    //         <Github width={30} height={30} />
-    //       </Link>
-    //     </div>
-    //   </div>
-    //   <div className="py-6 text-sm text-center uppercase tracking-wide">
-    //     © 2023 코후비 블로그
-    //   </div>
-    // </footer>
     <footer className={`${className} overflow-hidden w-full h-full relative`}>
       <div className={"container px-4 mx-auto z-20 relative"}>
         <div className={"md:flex"}>
           <div className={"md:w-4/12 mb-10 md:mb-0"}>
             <Link href={"/"} className={"text-[22px] text-gray-800 font-bold"}>
-              acraft<span className={"text-violet-600"}>.</span>
+              kohubi<span className={"text-violet-600"}>.</span>
             </Link>
           </div>
           <div className={"md:w-8/12"}>

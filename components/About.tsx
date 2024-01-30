@@ -6,16 +6,16 @@ import Image from "next/image";
 
 const aboutContent = {
   heading: {
-    title: "Where Creativity Meeets",
-    subTitle: "About Us",
+    title: "7년차 풀스택 개발자 김인중(Kohubi)입니다.",
+    subTitle: "About Me",
   },
   content: {
     img: "/images/hero-img-1-min.jpg",
-    title: "Architects of Innovation",
-    description: "Every structure we conceive tells a unique",
+    title: "블로그 주인에 대해 더 알아보기",
+    description: "자세한 소개를 보실 수 있습니다.",
     btn: {
       href: "/about",
-      label: " Learn about us",
+      label: "소개 더 보기",
     },
   },
 };

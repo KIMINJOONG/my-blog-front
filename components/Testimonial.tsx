@@ -12,21 +12,21 @@ interface IProps {
 
 const testimonialContent = {
   heading: {
-    title: "Hear what our customers say",
-    subTitle: "Testimonials",
+    title: "총 경력",
+    subTitle: "회사별 근무 경력",
   },
   testimonials: [
     {
       img: "/images/person-1-min.jpg",
-      name: "Jane Cooper",
-      titleRole: "homeowner",
-      quote: "Working with acraft was a dream",
+      name: "Finders",
+      titleRole: "CTO",
+      quote: `보인다 앱 프론트 백엔드 개발\n보인다 앱 어드민 웹페이지 총괄\n보인다앱에서 사용되는 채팅서버 개발\nB2B용 챗봇 웹 개발`,
     },
     {
       img: "/images/person-2-min.jpg",
-      name: "Kim",
-      titleRole: "homeowner",
-      quote: "Working with acraft was a dream",
+      name: "문코퍼레이션(이니스 컴퍼니)",
+      titleRole: "개발팀원",
+      quote: "쇼핑몰 통합 관리 어드민 개발",
     },
     {
       img: "/images/person-3-min.jpg",
@@ -154,7 +154,9 @@ const Testimonial = ({ className }: IProps) => {
                           >
                             &ldquo;
                           </span>
-                          {testimonial.quote}
+                          {testimonial.quote.split("\n").map((text, index) => (
+                            <p key={index}>{text}</p>
+                          ))}
                         </blockquote>
                         <div className={"flex space-x-3 text-sm"}>
                           <strong>{testimonial.name}</strong>

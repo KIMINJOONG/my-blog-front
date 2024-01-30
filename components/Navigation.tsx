@@ -7,10 +7,10 @@ import { usePathname } from "next/navigation";
 
 const navigationMenu = [
   { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
+  // { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  // { href: "/contact", label: "Contact" },
 ];
 
 const Navigation = () => {
@@ -56,7 +56,7 @@ const Navigation = () => {
         >
           <div>
             <Link href={"/"} className={"text-[22px] text-gray-700 font-bold"}>
-              arcraft<span className={"text-violet-600"}>.</span>
+              KOHUBI<span className={"text-violet-600"}>.</span>
             </Link>
           </div>
           <div className="flex">

@@ -6,9 +6,9 @@ import Image from "next/image";
 
 const heroContent = {
   intro: {
-    title: "Where Creativity Meets",
-    subTitle: "Welcome",
-    description: "Welcome to a world",
+    title: "풀스택 개발자 김인중(Kohubi)입니다.",
+    subTitle: "환영합니다.",
+    description: "저의 개인 블로그에 오신걸 환영합니다.",
     btn: {
       href: "/proejcts",
       label: "View Projects",
