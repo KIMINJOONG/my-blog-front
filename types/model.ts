@@ -3,6 +3,7 @@ export interface IPost {
   title: string;
   content: string;
   view: number;
+  thumbnail: string;
   category: ICategory;
   createdAt: string;
 }

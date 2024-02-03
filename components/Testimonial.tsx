@@ -17,22 +17,51 @@ const testimonialContent = {
   },
   testimonials: [
     {
-      img: "/images/person-1-min.jpg",
+      img: "/images/finders_logo.jpg",
       name: "Finders",
       titleRole: "CTO",
-      quote: `보인다 앱 프론트 백엔드 개발\n보인다 앱 어드민 웹페이지 총괄\n보인다앱에서 사용되는 채팅서버 개발\nB2B용 챗봇 웹 개발`,
+      quote: `2021년 11월 - 현재
+      
+      자사 플랫폼 개발 및 유지보수
+      금융SNS인 파인애플 앱 프로젝트의 시작 아키텍쳐 설계부터 백엔드, 프론트엔드 업무 중
+      spring boot와 JPA를 사용하여 백엔드 서버를 개발
+      프론트는 react-native를 사용
+      nodejs express 프레임워크로 개발되어있었던 회사 웹페이지 유지보수 작업
+      파인애플에서 보인다로 앱명 변경
+      챗GPT와 연동하는 챗봇 서버를 FastAPI와 도커로 개발 및 배포
+      NestJS를 사용하여 채팅 서버 개발`,
     },
     {
-      img: "/images/person-2-min.jpg",
+      img: "/images/no-image.svg",
       name: "문코퍼레이션(이니스 컴퍼니)",
       titleRole: "개발팀원",
-      quote: "쇼핑몰 통합 관리 어드민 개발",
+      quote: `2020년 2월 - 2021년 11월 | 1년 10개월
+
+      자사 쇼핑몰 관련 솔루션 개발 및 유지보수
+      reactjs, react hooks, laravel로 구현
+      자사가 가지고있는 쇼핑몰을 상품등록, 주문등의 업무처리를 한 관리자 페이지에서 관리할수있도록 통합 솔루션을 메인으로 맡아 개발함.
+      현재는 소셜네트워크 앱을 리액트 네이티브와 라라벨로 앱, 서버 개발 진행중`,
     },
     {
-      img: "/images/person-3-min.jpg",
-      name: "Lee",
-      titleRole: "homeowner",
-      quote: "Working with acraft was a dream",
+      img: "/images/grafik_logo.jpg",
+      name: "그라픽",
+      titleRole: "백엔드팀",
+      quote: `2019년 5월 - 2020년 2월 | 10개월
+
+      쇼핑몰관련 si, sm업무
+      php, node js, vue.js를 사용하여 쇼핑몰 개발
+      spring boot를 사용하여 해외에서 가져온 데이터를 각 인터넷 마켓으로 연동시켜주는 중간 플랫폼역할을 하는 웹사이트 유지보수 및 개발업무`,
+    },
+    {
+      img: "/images/no-image.svg",
+      name: "사랑모아 금융서비스",
+      titleRole: "전산개발팀",
+      quote: `2018년 4월 - 2019년 4월 | 1년 1개월
+
+      전산 개발 및 유지보수를 주로 담당하였습니다.
+      웹으로 구현된 erp 개발 및 유지보수
+      직원전용 쇼핑몰인 '고객몰'을 구현
+      사랑모아 어플에서 어플과 erp의 데이터 연동으로 보험금 청구, 보험분석 기능과 사내 보험설계사를 보험상담사로 지정될수있도록 구현`,
     },
   ],
 };
@@ -135,27 +164,29 @@ const Testimonial = ({ className }: IProps) => {
                       "block md:flex overflow-y-visible mt-10 items-stretch bg-white"
                     }
                   >
-                    <div className={"md:w-4/12"}>
+                    <div className={"md:w-4/12 md:h-4/12 relative"}>
                       <Image
                         src={testimonial.img}
                         alt={testimonial.name}
-                        width={379}
-                        height={320}
-                        className={"object-cover object-center !h-full !w-full"}
+                        fill
+                        className={"object-center !h-full !w-full"}
                       />
                     </div>
                     <div className={"md:w-8/12 p-7 md:p-16 flex items-center"}>
                       <div>
                         <blockquote className={"text-lg mb-7"}>
-                          <span
+                          {/* <span
                             className={
                               "text-[200px] leading-[0] relative text-violet-600 block"
                             }
                           >
                             &ldquo;
-                          </span>
+                          </span> */}
                           {testimonial.quote.split("\n").map((text, index) => (
-                            <p key={index}>{text}</p>
+                            <span key={index}>
+                              {text}
+                              <br />
+                            </span>
                           ))}
                         </blockquote>
                         <div className={"flex space-x-3 text-sm"}>

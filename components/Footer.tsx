@@ -125,7 +125,7 @@ const Footer = ({ className }: IProps) => {
   return (
     <footer className={`${className} overflow-hidden w-full h-full relative`}>
       <div className={"container px-4 mx-auto z-20 relative"}>
-        <div className={"md:flex"}>
+        {/* <div className={"md:flex"}>
           <div className={"md:w-4/12 mb-10 md:mb-0"}>
             <Link href={"/"} className={"text-[22px] text-gray-800 font-bold"}>
               kohubi<span className={"text-violet-600"}>.</span>
@@ -167,7 +167,7 @@ const Footer = ({ className }: IProps) => {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
         <Copyright />
       </div>
     </footer>

@@ -39,15 +39,13 @@ const Items = ({ posts }: { posts: IPost[] }) => {
                 href={`/blog/${post.id}`}
                 className={"relative block overflow-hidden"}
               >
-                <Image
-                  src={post.image ?? ""}
-                  alt={"kim"}
-                  width={1064}
-                  height={644}
-                  className={
-                    "object-cover object-center h-[200px] duration-300 transition-all ease-in-out group-hover:scale-[1.05]"
-                  }
-                />
+                <div className={"relative w-[100%] aspect-square"}>
+                  <Image
+                    src={post.thumbnail ?? "/images/no-image.svg"}
+                    alt={"kim"}
+                    fill
+                  />
+                </div>
               </Link>
               <div className={"p-8"}>
                 <p
