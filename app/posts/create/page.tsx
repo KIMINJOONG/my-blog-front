@@ -37,7 +37,6 @@ const EditorComponent = () => {
     input.click();
 
     input.addEventListener("change", async () => {
-      console.log("드ㄹ어옴");
       if (quillInstance && quillInstance.current) {
         if (input.files) {
           const file = input.files[0];

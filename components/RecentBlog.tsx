@@ -1,24 +1,24 @@
 "use client";
 
-import React from "react";
+import { IPost } from "@/types/model";
+import { format, parseISO } from "date-fns";
 import { motion } from "framer-motion";
-import { Post, allPosts } from "@/.contentlayer/generated";
-import { compareDesc, format, parseISO } from "date-fns";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 
 interface IProps {
   className: string;
+  posts: IPost[];
 }
 const recentBlogContent = {
   heading: {
-    title: "Recent Updates",
-    subTitle: "Our Blog",
-    description: "Discover the latest hight",
+    title: "최근에 올라온 글",
+    subTitle: "블로그",
+    description: "최근에 업로드한 글 들입니다.",
   },
 };
 
-const PostCard = ({ index, post }: { index: number; post: Post }) => {
+const PostCard = ({ index, post }: { index: number; post: IPost }) => {
   index *= 0.05;
   return (
     <motion.div
@@ -34,31 +34,33 @@ const PostCard = ({ index, post }: { index: number; post: Post }) => {
       viewport={{ once: true }}
       className={"bg-white relative overflow-hidden group"}
     >
-      <Link href={post.url} className={"relative block overflow-hidden"}>
-        <Image
-          src={post.image}
-          alt={post.title}
-          width={1064}
-          height={644}
-          className={
-            "object-cover object-center h-[200px] duration-300 transition-all ease-in-out group-hover:scale-[1.05]"
-          }
-        />
+      <Link
+        href={`/blog/${post.id}`}
+        className={"relative block overflow-hidden"}
+      >
+        <div className={"relative w-[100%] aspect-square"}>
+          <Image
+            src={post.thumbnail ?? "/images/no-image.svg"}
+            alt={"kim"}
+            fill
+          />
+        </div>
       </Link>
       <div className={"p-8"}>
         <p
           className={"text-gray-500 mb-3 uppercase text-[12px] tracking-[1px]"}
         >
-          {format(parseISO(post.date), "LLL d, yyyy")} &bullet; {post.author}
+          {format(parseISO(post.createdAt), "LLL d, yyyy")} &bullet;{" "}
+          {post.createdAt}
         </p>
         <h3 className={"mb-4"}>
-          <Link href={post.url} className={"text-lg leading-none"}>
+          <Link href={`/blog/${post.id}`} className={"text-lg leading-none"}>
             {post.title}
           </Link>
         </h3>
         <p>
           <Link
-            href={post.url}
+            href={`/blog/${post.id}`}
             className={
               "text-[12px] tracking-[2px] uppercase border-b-2 pb-2 inline-block border-violet-600"
             }
@@ -70,10 +72,7 @@ const PostCard = ({ index, post }: { index: number; post: Post }) => {
     </motion.div>
   );
 };
-const RecentBlog = ({ className }: IProps) => {
-  const posts = allPosts.sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date))
-  );
+const RecentBlog = ({ className, posts }: IProps) => {
   return (
     <section className={`${className}`}>
       <div className={"container px-4 mx-auto"}>

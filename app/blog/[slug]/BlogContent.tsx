@@ -11,10 +11,10 @@ import ReactQuill from "react-quill";
 
 interface IProps {
   post: IPost;
+  posts: IPost[];
 }
-const BlogContent = ({ post }: IProps) => {
+const BlogContent = ({ post, posts }: IProps) => {
   const quillInstance = useRef<ReactQuill>(null);
-  const posts = allPosts.sort();
   let MDXContnet;
 
   if (!posts) return null;
@@ -83,12 +83,12 @@ const BlogContent = ({ post }: IProps) => {
         </article>
 
         <div className={"max-w-4xl mx-auto mt-20 lg:mt-32"}>
-          <h2 className={"text-2xl text-gray-700 mb-10"}>More Blog Posts</h2>
+          <h2 className={"text-2xl text-gray-700 mb-10"}>최근에 올라온 글</h2>
           <div
             className={"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"}
           >
             {posts
-              .filter((a) => post.title !== a.title)
+              .filter((a) => post.id !== a.id)
               .map((item, index) => {
                 if (index > 2) return null;
                 return <PostCard key={index} index={index} post={item} />;

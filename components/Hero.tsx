@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const heroContent = {
   intro: {
-    title: "풀스택 개발자 김인중(Kohubi)입니다.",
+    title: "풀스택 개발자\n김인중(Kohubi)\n입니다.",
     subTitle: "환영합니다.",
     description: "저의 개인 블로그에 오신걸 환영합니다.",
     btn: {
@@ -66,7 +66,12 @@ const Hero = ({ className }: IProps) => {
                   "text-gray-800 text-3xl sm:text-4xl md:text-5xl lg:text-6xl w-auto lg:w-screen max-w-xl mb-4 md:mb-8"
                 }
               >
-                {heroContent.intro.title}
+                {heroContent.intro.title.split("\n").map((title, index) => (
+                  <span key={index}>
+                    {title}
+                    <br />
+                  </span>
+                ))}
               </motion.h1>
             )}
 
@@ -121,10 +126,10 @@ const Hero = ({ className }: IProps) => {
               className={"z-[2] relative bg-cover bg-center "}
             >
               <Image
-                src={"/images/hero-img-1-min.jpg"}
+                src={"/images/me.jpg"}
                 width={828}
                 height={985}
-                alt={"Hero image"}
+                alt={"my image"}
               />
             </motion.div>
             <motion.div

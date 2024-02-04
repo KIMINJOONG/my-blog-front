@@ -92,7 +92,6 @@ const Posts = ({
   limit,
 }: IPros) => {
   const [pageCount, setPageCount] = useState(totalCount / limit);
-  const [itemOffset, setItemOffset] = useState(0);
   const [clickPaginate, setClickPaginate] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   let items: Post[] | null = null;
